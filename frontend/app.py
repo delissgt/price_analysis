@@ -21,10 +21,10 @@ st.dataframe(df)
 # Display data in a static table
 # st.table(df)
 
-search_term = st.text_input("Search product:")
+search_term = st.text_input("Search product by name:")
 
 # button for search
-if st.button("Search"):
+if st.button("Search") or search_term:
     if search_term:
         # filter the dataframe  according to the search result
         filtered_df = df[df['name'].str.contains(search_term, case=False, na=False)]
@@ -37,7 +37,6 @@ if st.button("Search"):
             st.warning("No matches found")
     else:
         st.write("Search term not provided")
-
 
 
 

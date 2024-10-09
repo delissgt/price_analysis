@@ -1,0 +1,40 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  DOCKER_COMPOSE: docker-compose -f dev.yml
+
+tasks:
+  up:
+    desc: Start project
+    deps:
+      - build
+    cmds:
+      - "{{.DOCKER_COMPOSE}} up"
+    silent: false
+
+  down:
+    desc: Stop container
+    cmds:
+      - "{{.DOCKER_COMPOSE}} down"
+
+  logs:
+    desc: View container logs
+    cmds:
+      - "{{.DOCKER_COMPOSE}} logs -f"
+
+  rebuild:
+    desc: Rebuild container
+    cmds:
+      - "{{.DOCKER_COMPOSE}} up --build"
+
+  build:
+    desc: Build container
+    cmds:
+      - "docker build -t price_analysis_img:dev ."
+
+  streamlit_run:
+    desc: Run streamlit app
+    cmds:
+      - "streamlit run frontend/app.py"
